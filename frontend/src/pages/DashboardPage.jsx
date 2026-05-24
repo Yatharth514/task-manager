@@ -123,98 +123,242 @@ const DashboardPage = () => {
 
 
     return (
-        <div>
-            <h1>My Dashboard</h1>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <button onClick={handleLogout}>Logout</button>
+    <div className="min-h-screen bg-gray-950 text-white p-6">
+        <div className="max-w-5xl mx-auto">
+            <div className="flex justify-between items-center mb-8">
+                <h1 className="text-4xl font-bold">My Dashboard</h1>
 
-            <form onSubmit={handleCreate}>
-                <input type="text"
+                <button
+                    onClick={handleLogout}
+                    className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition duration-200"
+                >
+                    Logout
+                </button>
+            </div>
+
+            {error && (
+                <p className="bg-red-500/20 border border-red-500 text-red-400 p-3 rounded-lg mb-6">
+                    {error}
+                </p>
+            )}
+
+            <form
+                onSubmit={handleCreate}
+                className="bg-gray-900 p-6 rounded-2xl shadow-lg space-y-4 mb-8"
+            >
+                <input
+                    type="text"
                     name="title"
                     placeholder="Enter the title"
                     value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })} />
+                    onChange={(e) =>
+                        setFormData({
+                            ...formData,
+                            [e.target.name]: e.target.value,
+                        })
+                    }
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
 
                 <textarea
                     name="description"
                     value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
-                    placeholder="Task Description" />
+                    onChange={(e) =>
+                        setFormData({
+                            ...formData,
+                            [e.target.name]: e.target.value,
+                        })
+                    }
+                    placeholder="Task Description"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
 
-                <select name="priority" value={formData.priority}
-                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}>
+                <select
+                    name="priority"
+                    value={formData.priority}
+                    onChange={(e) =>
+                        setFormData({
+                            ...formData,
+                            [e.target.name]: e.target.value,
+                        })
+                    }
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                 </select>
 
-                <input type="datetime-local"
+                <input
+                    type="datetime-local"
                     name="due_date"
                     value={formData.due_date}
-                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })} />
+                    onChange={(e) =>
+                        setFormData({
+                            ...formData,
+                            [e.target.name]: e.target.value,
+                        })
+                    }
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
 
-                <button type="submit">Add Task</button>
-
-
+                <button
+                    type="submit"
+                    className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition duration-200"
+                >
+                    Add Task
+                </button>
             </form>
 
-            {tasks.length === 0 && <p>No tasks yet. Create one!</p>}
+            {tasks.length === 0 && (
+                <p className="text-gray-400">No tasks yet. Create one!</p>
+            )}
 
-            {tasks.map((task) =>
-
-                <div key={task.id}>
-                    {editingId === task.id ?
-                        (
-                            <form onSubmit={(e) => handleUpdate(e, task.id)}>
-                                <input type="text"
+            <div className="grid gap-6">
+                {tasks.map((task) => (
+                    <div
+                        key={task.id}
+                        className="bg-gray-900 rounded-2xl shadow-lg p-6 border border-gray-800"
+                    >
+                        {editingId === task.id ? (
+                            <form
+                                onSubmit={(e) => handleUpdate(e, task.id)}
+                                className="space-y-4"
+                            >
+                                <input
+                                    type="text"
                                     name="title"
                                     value={editFormData.title}
-                                    onChange={(e) => setEditFormData({ ...editFormData, [e.target.name]: e.target.value })} />
+                                    onChange={(e) =>
+                                        setEditFormData({
+                                            ...editFormData,
+                                            [e.target.name]: e.target.value,
+                                        })
+                                    }
+                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
 
                                 <textarea
-                                    name="description" value={editFormData.description}
-                                    onChange={(e) => setEditFormData({ ...editFormData, [e.target.name]: e.target.value })}
+                                    name="description"
+                                    value={editFormData.description}
+                                    onChange={(e) =>
+                                        setEditFormData({
+                                            ...editFormData,
+                                            [e.target.name]: e.target.value,
+                                        })
+                                    }
+                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
+
                                 <select
-                                    name="status" value={editFormData.status}
-                                    onChange={(e) => setEditFormData({ ...editFormData, [e.target.name]: e.target.value })}
+                                    name="status"
+                                    value={editFormData.status}
+                                    onChange={(e) =>
+                                        setEditFormData({
+                                            ...editFormData,
+                                            [e.target.name]: e.target.value,
+                                        })
+                                    }
+                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
                                     <option value="pending">Pending</option>
                                     <option value="completed">Completed</option>
                                 </select>
+
                                 <select
-                                    name="priority" value={editFormData.priority}
-                                    onChange={(e) => setEditFormData({ ...editFormData, [e.target.name]: e.target.value })}
+                                    name="priority"
+                                    value={editFormData.priority}
+                                    onChange={(e) =>
+                                        setEditFormData({
+                                            ...editFormData,
+                                            [e.target.name]: e.target.value,
+                                        })
+                                    }
+                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
                                     <option value="low">Low</option>
                                     <option value="medium">Medium</option>
                                     <option value="high">High</option>
                                 </select>
+
                                 <input
-                                    type="datetime-local" name="due_date" value={editFormData.due_date}
-                                    onChange={(e) => setEditFormData({ ...editFormData, [e.target.name]: e.target.value })}
+                                    type="datetime-local"
+                                    name="due_date"
+                                    value={editFormData.due_date}
+                                    onChange={(e) =>
+                                        setEditFormData({
+                                            ...editFormData,
+                                            [e.target.name]: e.target.value,
+                                        })
+                                    }
+                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
 
-                                <button type="submit">Save Changes</button>
-                                <button type="button" onClick={() => setEditingId(null)}>Cancel</button>
+                                <div className="flex gap-3">
+                                    <button
+                                        type="submit"
+                                        className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg transition duration-200"
+                                    >
+                                        Save Changes
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setEditingId(null)}
+                                        className="bg-gray-600 hover:bg-gray-700 px-5 py-2 rounded-lg transition duration-200"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
                             </form>
                         ) : (
                             <>
-                                <h3>{task.title}</h3>
-                                <p>{task.description}</p>
-                                <p>Status: {task.status}</p>
-                                <p>Priority: {task.priority}</p>
-                                <p>Due: {task.due_date ? new Date(task.due_date).toLocaleDateString() : "No due date"}</p>
-                                <button onClick={() => startEdit(task)}>Edit</button>
-                                <button onClick={() => handleDelete(task.id)}>Delete it!</button>
+                                <h3 className="text-2xl font-semibold mb-3">
+                                    {task.title}
+                                </h3>
+
+                                <p className="text-gray-300 mb-4">
+                                    {task.description}
+                                </p>
+
+                                <div className="space-y-2 text-sm text-gray-400 mb-5">
+                                    <p>Status: {task.status}</p>
+                                    <p>Priority: {task.priority}</p>
+                                    <p>
+                                        Due:{" "}
+                                        {task.due_date
+                                            ? new Date(
+                                                  task.due_date
+                                              ).toLocaleDateString()
+                                            : "No due date"}
+                                    </p>
+                                </div>
+
+                                <div className="flex gap-3">
+                                    <button
+                                        onClick={() => startEdit(task)}
+                                        className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg transition duration-200"
+                                    >
+                                        Edit
+                                    </button>
+
+                                    <button
+                                        onClick={() =>
+                                            handleDelete(task.id)
+                                        }
+                                        className="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-lg transition duration-200"
+                                    >
+                                        Delete it!
+                                    </button>
+                                </div>
                             </>
                         )}
-
-                </div>
-            )}
+                    </div>
+                ))}
+            </div>
         </div>
-
-    )
+    </div>
+)
 
 }
 export default DashboardPage;

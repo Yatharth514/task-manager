@@ -29,30 +29,59 @@ const LoginPage = () => {
         }
     };
 
-    return ( // here we are adding the error para to show if there is an error and loading ux which will disable the bbuttons at the time of loading
-        <div>
-            <h1>Login Page</h1> 
-            <form onSubmit={handleSubmit}>
-                <input type="email" 
+    return (
+    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-800">
+            
+            <h1 className="text-4xl font-bold text-white text-center mb-8">
+                Login Page
+            </h1>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+
+                <input
+                    type="email"
                     placeholder="Enter email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)} />
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-gray-800 text-white border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+                />
 
-                <input type="password"
+                <input
+                    type="password"
                     placeholder="Enter your password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)} />
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-gray-800 text-white border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+                />
 
-                {error && <p>{error}</p>} 
+                {error && (
+                    <p className="text-red-400 bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-sm">
+                        {error}
+                    </p>
+                )}
 
-                <button type="submit" disabled={loading}>
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 rounded-xl transition duration-200"
+                >
                     {loading ? "Logging in..." : "Log In"}
-                </button> 
+                </button>
             </form>
-            <Link to="/register">Don't have an account? Register</Link>
 
+            <p className="text-gray-400 text-center mt-6">
+                Don't have an account?{" "}
+                <Link
+                    to="/register"
+                    className="text-blue-400 hover:text-blue-300 font-medium"
+                >
+                    Register
+                </Link>
+            </p>
         </div>
-    );
+    </div>
+);
 
 };
 export default LoginPage;
